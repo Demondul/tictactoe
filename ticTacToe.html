@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TIC-TAC-TOE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="ticTacToe.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".pcBG").hover(function(){
+                var clicked = String($(this).attr("data-alt-clicked"));
+                if(!Boolean(clicked)){
+                    $(this).css("background-color","#3A98D6");
+                }
+            },
+            function(){
+                var clicked = $(this).attr("data-alt-clicked");
+                if(!Boolean(clicked)){
+                    $(this).css("background-color","transparent");
+                }
+            });
+            $(".pcBG").click(function(){
+                var clicked = String($(this).attr("data-alt-clicked"));
+                var turn = $("#hdnTurn").text();
+                var tics = [];
+
+                if(turn=="X" && !Boolean(clicked)){
+                    $("img",this).attr("src","images/X.png");
+                    $("#hdnTurn").text("O");
+                    $(this).attr("data-alt-clicked","X");
+                    $(this).attr("data-alt-value","X");
+                }
+                else if(turn=="O" && !Boolean(clicked)){
+                    $("img",this).attr("src","images/O.png");
+                    $("#hdnTurn").text("X");
+                    $(this).attr("data-alt-clicked","O");
+                    $(this).attr("data-alt-value","O");
+                }
+
+                for(var i=1;i<=9;i++){
+                    var idName = "#t" + i;
+                    var tic = String($(idName).attr("data-alt-value"));
+                    if(tic=="undefined" || tic==""){
+                        tics.push(i);                    
+                    }
+                    else{
+                        tics.push(tic);                        
+                    }
+                }
+
+                if(isWin(tics)){
+                    var scoreX = $("#hdnScoreX").text();
+                    var scoreO = $("#hdnScoreO").text();
+
+                    alert("Player " + turn + " Wins!");
+                    $(".pieces").attr("src","images/dojo.png");
+                    $(".pcBG").css("background-color","transparent");
+                    $(".pcBG").attr("data-alt-clicked","");
+                    $(".pcBG").attr("data-alt-value","");
+
+                    console.log( String($("#t9").attr("data-alt-clicked")));
+                    console.log( String($("#t9").attr("data-alt-value")));
+                    
+                    tics = [];
+
+                    // for(var i=1;i<=9;i++){
+                    //     var idName = "#t" + i;
+                    //     $(idName).attr("data-alt-clicked","");
+                    //     $(idName).attr("data-alt-value","");                    
+                    // }
+
+                    if(turn=="X"){
+                        scoreX = addScore(scoreX);
+                        var url = getScoreUrl(scoreX);
+                        if(Number(scoreX)%5 != 0){                          
+                            if(Number(scoreX)%5 == 1){
+                                $("#pScoreX:last-child").append("<img id='scoreIX' src='" + url + "'>");
+                            }
+                            else{
+                                $("#pScoreX:last-child").html("<img id='scoreIX' src='" + url + "'>");
+                            }
+                        }
+                        else{
+                            if(scoreO > 5){
+                                $("#pScoreX:last-child").append("<img class='scoreVX' src='" + url + "'>");
+                            }
+                            else{
+                                $("#pScoreX").html("<img class='scoreVX' src='" + url + "'>");                            
+                            }
+                            $("#scoreIX").remove();                            
+                        }
+                        $("#hdnScoreX").text(scoreX);
+                    }
+                    else if(turn=="O"){
+                        scoreO = addScore(scoreO);
+                        var url = getScoreUrl(scoreO);
+                        if(Number(scoreO)%5 != 0){
+                            if(Number(scoreO)%5 == 1){
+                                $("#pScoreO:last-child").append("<img id='scoreIO' src='" + url + "'>");
+                            }
+                            else{
+                                $("#pScoreO:last-child").html("<img id='scoreIO' src='" + url + "'>");
+                            }
+                        }
+                        else{
+                            if(scoreO > 5){
+                                $("#pScoreO:last-child").append("<img class='scoreVO' src='" + url + "'>");
+                            }
+                            else{
+                                $("#pScoreO").html("<img class='scoreVO' src='" + url + "'>");
+                            }
+                            $("#scoreIO").remove();
+                        }
+                        $("#hdnScoreO").text(scoreO);                        
+                    }
+                }
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        function isWin(tac){
+            if(tac[0]==tac[1] && tac[1]==tac[2]){
+                return true;
+            }
+            else if(tac[3]==tac[4] && tac[4]==tac[5]){
+                return true;
+            }
+            else if(tac[6]==tac[7] && tac[7]==tac[8]){
+                return true;
+            }
+            else if(tac[0]==tac[3] && tac[3]==tac[6]){
+                return true;
+            }
+            else if(tac[1]==tac[4] && tac[4]==tac[7]){
+                return true;
+            }
+            else if(tac[2]==tac[5] && tac[5]==tac[8]){
+                return true;
+            }
+            else if(tac[0]==tac[4] && tac[4]==tac[8]){
+                return true;
+            }
+            else if(tac[2]==tac[4] && tac[4]==tac[6]){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        function addScore(str){
+            var num = Number(str) + 1;
+            return String(num);
+        }
+        function getScoreUrl(str){
+            var score = Number(str);
+
+            if(score%5 == 1){
+                return "images/1.png"
+            }
+            if(score%5 == 2){
+                return "images/2.png"
+            }
+            if(score%5 == 3){
+                return "images/3.png"
+            }
+            if(score%5 == 4){
+                return "images/4.png"
+            }
+            if(score%5 == 0){
+                return "images/0.png"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tic-Tac-Toe</h1>
+        </div>
+        <div class="border">
+            <div class="board">
+                <div class="pcBG" id="t1" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+                <div class="pcBG" id="t2" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+                <div class="pcBG" id="t3" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+                <div class="pcBG" id="t4" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+                <div class="pcBG" id="t5" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+                <div class="pcBG" id="t6" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+                <div class="pcBG" id="t7" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+                <div class="pcBG" id="t8" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+                <div class="pcBG" id="t9" data-alt-clicked="" data-alt-value="">
+                    <img src="images/dojo.png" alt="Tic-Tac-Toe" class="pieces">
+                </div>
+            </div>
+        </div>
+        <div class="cards">
+            <div class="players">
+                <h3>Player X</h3>
+                <div class="pScore" id="pScoreX">
+                </div>
+            </div>
+            <div class="players">
+                <h3>Player O</h3>
+                <div class="pScore" id="pScoreO">
+                </div>
+            </div>
+        </div>
+         <div class="footer">
+            <label id="hdnTurn">X</label>
+            <label id="hdnScoreO">0</label>
+            <label id="hdnScoreX">0</label>
+        </div>
+    </div>
+</body>
+</html>

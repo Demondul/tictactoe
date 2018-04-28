@@ -1,0 +1,104 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+/* div{
+    outline: 1px dotted navy;
+} */
+.container{
+    min-height: 800px;
+    width: 990px;
+    background-color: #52C9EA;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px solid black
+}
+.header{
+    min-height: 60px;
+    width: 990px;
+    text-align: center;
+    padding-top: 20px;
+    background-color: #1169F8;
+    color: white;
+    border-bottom: 2px solid black
+}
+.header h1{
+    vertical-align: middle;
+}
+.border{
+    height: 600px;
+    width: 605px;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+.board{
+    height: 600px;
+    width: 605px;
+    display: inline-block;
+    background-image: url("images/ticBoard.png");
+    border: 2px solid black;
+}
+.cards{
+    min-height: 300px;
+    width: 310px;
+    display: inline-block;
+    margin-left: 5px;
+}
+.players{
+    height: 290px;
+    width: 310px;
+    display: inline-block;
+    margin-top: 20px;
+    background-color: white;
+    border: 2px solid black;
+}
+.pScore{
+    height: 265px;
+    width: 310;
+    background-color: white;
+    border-top: 2px solid black;
+}
+.pcBG{
+    height: 185px;
+    width: 185px;
+    display: inline-block;
+    vertical-align: top;
+}
+.pieces{
+    height: 185px;
+    width: 187px;
+}
+.scoreI{
+    height: 75px;
+    width: 25px;
+    display: inline-block;
+}
+.scoreV{
+    height: 75px;
+    width: 120px;
+    display: inline-block;
+}
+#t2{
+    margin-left: 18px;
+    margin-right: 20px;
+    margin-bottom: 22px;
+}
+#t5{
+    margin-left: 18px;
+    margin-right: 20px;
+    margin-bottom: 24px;
+}
+#t8{
+    margin-left: 18px;
+    margin-right: 20px;
+}
+#t3, #t6, #t9{
+    width: 188px
+}
+.footer{
+    height: 60px;
+    width: 990px;
+}
+#hdnScoreX, #hdnScoreO, #hdnTurn{
+    visibility: hidden;
+}
